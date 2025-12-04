@@ -60,7 +60,10 @@ COMMAND=${1:-up}
 case $COMMAND in
     up)
         echo -e "${BLUE}🚀 개발 환경을 백그라운드로 시작합니다...${NC}"
-        docker compose $ENV_FILE_OPTION $COMPOSE_FILES up -d --build
+        echo -e "${BLUE}🔨 이미지 빌드 중...${NC}"
+        docker compose $ENV_FILE_OPTION $COMPOSE_FILES build
+        echo -e "${BLUE}🚀 컨테이너 시작 중...${NC}"
+        docker compose $ENV_FILE_OPTION $COMPOSE_FILES up -d
         echo -e "${GREEN}✅ 개발 환경이 시작되었습니다.${NC}"
         echo -e "${BLUE}📊 서비스 접속 정보:${NC}"
         echo "   - Frontend:    http://localhost:3000"
@@ -112,7 +115,8 @@ case $COMMAND in
 
     rebuild)
         echo -e "${BLUE}🔨 이미지를 다시 빌드하고 시작합니다...${NC}"
-        docker compose $ENV_FILE_OPTION $COMPOSE_FILES up -d --build
+        docker compose $ENV_FILE_OPTION $COMPOSE_FILES build
+        docker compose $ENV_FILE_OPTION $COMPOSE_FILES up -d
         echo -e "${GREEN}✅ 빌드 및 시작이 완료되었습니다.${NC}"
         ;;
 
